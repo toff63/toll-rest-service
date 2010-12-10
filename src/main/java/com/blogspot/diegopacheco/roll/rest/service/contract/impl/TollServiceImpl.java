@@ -1,5 +1,7 @@
 package com.blogspot.diegopacheco.roll.rest.service.contract.impl;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class TollServiceImpl implements TollService {
 	@Override
 	public Recipt payCarToll(Integer value) {
 		Recipt r = new Recipt();
-		r.setChange(new Integer(value));
+		r.setChange(new BigDecimal(value));
 		return r;
 	}
 	

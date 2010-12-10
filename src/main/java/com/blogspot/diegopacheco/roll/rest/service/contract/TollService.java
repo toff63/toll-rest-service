@@ -18,7 +18,6 @@ import javax.ws.rs.Produces;
  */
 @Path("/toll")
 @Produces("application/json")
-@Consumes("application/json")
 public interface TollService {
 	
 	@GET
