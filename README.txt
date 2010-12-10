@@ -1,0 +1,1 @@
+This is an exercise to practice the creation of a REST service using CXF. This exercise is the conclusion of Diego Pacheco REST workshop that can be found on slideshare (http://www.slideshare.net/diego.pacheco/rest-in-design)
