@@ -1,12 +1,15 @@
 package com.blogspot.diegopacheco.roll.rest.service.contract;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 
 /**
  * 
@@ -19,6 +22,17 @@ import javax.ws.rs.Produces;
 @Path("/toll")
 @Produces("application/json")
 public interface TollService {
+
+  // Ressource: vehicule
+
+  @GET
+  @Path("/vehicule/{vehiculeType}/price")
+  public BigDecimal price(@PathParam("vehiculeType") VehiculeType type);
+
+
+  @GET
+  @Path("/vehicule/truck/price/{axis}")
+  public BigDecimal price(@PathParam("axis") Integer axis);
 	
 	@GET
 	@Path("/car/{money}")	
