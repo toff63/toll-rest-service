@@ -5,7 +5,7 @@ public class MissingAxisException extends RuntimeException{
   public static final long serialVersionUID = -1;
 
   public MissingAxisException(){
-    super("You must specify the number of axis in case of a truck.");
+    super("You must specify the number of axis in case of a truck. This number must be greater or equals to 2.");
   }
 
 }

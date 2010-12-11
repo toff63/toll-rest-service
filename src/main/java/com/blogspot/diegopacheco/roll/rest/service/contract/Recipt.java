@@ -20,47 +20,58 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = { "change" })
 public class Recipt {
 
-	private UUID id;
+  private UUID id;
 
-	private BigDecimal change;
+  private BigDecimal change;
 
-	private Date date;
+  private Date date;
 
-	private String immatricuation;
+  private String immatricuation;
 
-	public Recipt() {
-	}
+  private String approvalCode;
 
-	public UUID getId() {
-		return this.id;
-	}
+  public Recipt() {
+    id = UUID.randomUUID();
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public UUID getId() {
+    return this.id;
+  }
 
-	public BigDecimal getChange() {
-		return change;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public void setChange(BigDecimal change) {
-		this.change = change;
-	}
+  public BigDecimal getChange() {
+    return change;
+  }
 
-	public Date getDate() {
-		return this.date;
-	}
+  public void setChange(BigDecimal change) {
+    this.change = change;
+  }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+  public Date getDate() {
+    return this.date;
+  }
 
-	public void setImmatricuation(String immatricuation) {
-		this.immatricuation = immatricuation;
-	}
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-	public String getImmatricuation() {
-		return immatricuation;
-	}
+  public void setImmatricuation(String immatricuation) {
+    this.immatricuation = immatricuation;
+  }
+
+  public String getApprovalCode(){
+    return this.approvalCode;
+  }
+
+  public void setApprovalCode(String approvalCode){
+    this.approvalCode = approvalCode;
+  }
+
+  public String getImmatricuation() {
+    return immatricuation;
+  }
 
 }

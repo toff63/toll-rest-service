@@ -1,8 +1,8 @@
 package com.blogspot.diegopacheco.roll.rest.service.contract;
 
 import java.math.BigDecimal;
-
-import java.util.List;
+import java.net.URI;
+import java.util.UUID;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -38,11 +38,18 @@ public interface TollService {
 	// Ressource: vehicule
 	@POST
 	@Path("/vehicule/{immatriculation}/pay/cash/{money}/received/{moneyReceived}")
-	public Recipt pay (@PathParam("immatriculation") String id,
+	public URI pay (@PathParam("immatriculation") String id,
 					   @PathParam("money") BigDecimal money,
 					   @PathParam("moneyReceived") BigDecimal moneyReceived);
 
+	@POST
 	@Path("/vehicule/{immatriculation}/pay/cc/{ccNumber}")
 	public Recipt pay(@PathParam("immatriculation") String id,
 					  @PathParam("ccNumber") String ccNumber);
+	
+	// Ressource: Receipt
+	@GET
+	@Path("receipt/{id}")
+	public Recipt getReceipt(@PathParam("id") UUID id);
+
 }
