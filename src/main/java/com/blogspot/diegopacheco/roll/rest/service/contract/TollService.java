@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -14,8 +15,8 @@ import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 /**
  * 
  * @author Diego Pacheco
- *
- * @since 28/11/2010  
+ * 
+ * @since 28/11/2010
  * @version 1.0
  * 
  */
@@ -23,35 +24,25 @@ import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 @Produces("application/json")
 public interface TollService {
 
-  // Ressource: vehicule
+	// Ressource: gate
 
-  @GET
-  @Path("/vehicule/{vehiculeType}/price")
-  public BigDecimal price(@PathParam("vehiculeType") VehiculeType type);
+	// Pricing
+	@GET
+	@Path("/gate/{vehiculeType}/price")
+	public BigDecimal price(@PathParam("vehiculeType") VehiculeType type);
 
+	@GET
+	@Path("/gate/truck/price/{axis}")
+	public BigDecimal price(@PathParam("axis") Integer axis);
 
-  @GET
-  @Path("/vehicule/truck/price/{axis}")
-  public BigDecimal price(@PathParam("axis") Integer axis);
-	
-	@GET
-	@Path("/car/{money}")	
-	public Recipt payCarToll(@PathParam("money")Integer money);
-	
-	@GET
-	@Path("/motorcycle/{money}")	
-	public Integer payMotorcycleToll(@PathParam("money")Integer money);
-	
-	@GET
-	@Path("/truck/{money}")	
-	public Double payTruckToll(@PathParam("money")Double money);
-	
-	@GET
-	@Path("/bicycle/{money}")	
-	public List<Double> payBicycleToll(@PathParam("money")Float money);
-	
-	@GET
-	@Path("/bus/{money:[0-9]+(;[0-9]+)*}")	
-	public List<Double> payBusToll(@PathParam("money")List<Double> bunchOfMoney);
-	
+	// Ressource: vehicule
+	@POST
+	@Path("/vehicule/{immatriculation}/pay/cash/{money}/received/{moneyReceived}")
+	public Recipt pay (@PathParam("immatriculation") String id,
+					   @PathParam("money") BigDecimal money,
+					   @PathParam("moneyReceived") BigDecimal moneyReceived);
+
+	@Path("/vehicule/{immatriculation}/pay/cc/{ccNumber}")
+	public Recipt pay(@PathParam("immatriculation") String id,
+					  @PathParam("ccNumber") String ccNumber);
 }
