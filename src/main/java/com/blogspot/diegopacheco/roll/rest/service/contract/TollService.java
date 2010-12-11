@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 
@@ -38,7 +39,7 @@ public interface TollService {
 	// Ressource: vehicule
 	@POST
 	@Path("/vehicule/{immatriculation}/pay/cash/{money}/received/{moneyReceived}")
-	public URI pay (@PathParam("immatriculation") String id,
+	public Response pay (@PathParam("immatriculation") String id,
 					   @PathParam("money") BigDecimal money,
 					   @PathParam("moneyReceived") BigDecimal moneyReceived);
 

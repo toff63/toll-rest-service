@@ -2,10 +2,14 @@ package com.blogspot.diegopacheco.roll.rest.service.contract.impl;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import com.blogspot.diegopacheco.roll.rest.service.contract.Recipt;
 import com.blogspot.diegopacheco.roll.rest.service.contract.TollService;
@@ -57,7 +61,7 @@ public class TollServiceImpl implements TollService {
 	}
 
 	@Override
-	public URI pay(String id, BigDecimal money, BigDecimal moneyReceived) {
+	public Response pay(String id, BigDecimal money, BigDecimal moneyReceived) {
 		Recipt r = new Recipt();
 		r.setImmatricuation(id);
 		r.setDate(new Date());
@@ -66,8 +70,13 @@ public class TollServiceImpl implements TollService {
 			throw new NotEnoughMoneyException();
 		}
 		r.setChange(moneyReceived.subtract(money));
-		cache.put(r.getId(), r);
-		return URI.create("/toll/receipt/" + r.getId());
+		try {
+			return Response.status(Response.Status.OK)
+						   .contentLocation(new URI("toll/receipt/" + r.getId()))
+						   .build();
+		} catch (URISyntaxException e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 	@Override
