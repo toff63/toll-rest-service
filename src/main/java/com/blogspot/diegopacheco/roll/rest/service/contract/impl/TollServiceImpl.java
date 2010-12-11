@@ -12,6 +12,8 @@ import com.blogspot.diegopacheco.roll.rest.service.contract.TollService;
 
 import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 
+import com.blogspot.diegopacheco.roll.rest.service.exception.MissingAxisException;
+
 /**
  * 
  * @author Diego Pacheco
@@ -39,7 +41,7 @@ public class TollServiceImpl implements TollService {
 		} else if (VehiculeType.MOTO.equals(type)) {
 			price = new BigDecimal(1.00f);
 		} else if (VehiculeType.TRUCK.equals(type)) {
-			// TODO throw exception
+      throw new MissingAxisException();
 		}
 		return price;
 	}
@@ -48,7 +50,7 @@ public class TollServiceImpl implements TollService {
 	public BigDecimal price(Integer axis) {
 		BigDecimal price = null;
 		if (axis == null) {
-			// TODO throw exception
+      throw new MissingAxisException();
 		}
 		price = new BigDecimal(2.11f);
 		price = price.multiply(new BigDecimal(axis));
