@@ -14,6 +14,7 @@ import com.blogspot.diegopacheco.roll.rest.service.contract.TollService;
 import com.blogspot.diegopacheco.roll.rest.service.contract.impl.TollServiceImpl;
 import com.blogspot.diegopacheco.roll.rest.service.engine.handlers.ArrayListProvider;
 import com.blogspot.diegopacheco.roll.rest.service.engine.handlers.ListProvider;
+import com.blogspot.diegopacheco.roll.rest.service.engine.handlers.URIProvider;
 
 /**
  * 
@@ -50,7 +51,7 @@ public class RESTExposureEngine {
 		providers.add(new JAXBElementProvider());
 		providers.add(new ArrayListProvider());
 		providers.add(new ListProvider());
-		
+		providers.add(new URIProvider());
 //		providers.add(new IntegerHandler());
 //		providers.add(new IntegerProvider());		
 //		providers.add(new IntegerParameter());
