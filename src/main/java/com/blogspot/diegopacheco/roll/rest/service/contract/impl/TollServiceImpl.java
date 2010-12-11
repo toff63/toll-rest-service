@@ -11,7 +11,7 @@ import java.util.UUID;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import com.blogspot.diegopacheco.roll.rest.service.contract.Recipt;
+import com.blogspot.diegopacheco.roll.rest.service.contract.Receipt;
 import com.blogspot.diegopacheco.roll.rest.service.contract.TollService;
 import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 import com.blogspot.diegopacheco.roll.rest.service.exception.MissingAxisException;
@@ -27,7 +27,7 @@ import com.blogspot.diegopacheco.roll.rest.service.exception.NotEnoughMoneyExcep
  */
 public class TollServiceImpl implements TollService {
 	
-	private Map<UUID, Recipt> cache = new HashMap<UUID, Recipt>();
+	private Map<UUID, Receipt> cache = new HashMap<UUID, Receipt>();
 
 	@Override
 	public BigDecimal price(VehiculeType type) {
@@ -61,8 +61,8 @@ public class TollServiceImpl implements TollService {
 	}
 
 	@Override
-	public Response pay(String id, BigDecimal money, BigDecimal moneyReceived) {
-		Recipt r = new Recipt();
+	public Receipt pay(String id, BigDecimal money, BigDecimal moneyReceived) {
+		Receipt r = new Receipt();
 		r.setImmatricuation(id);
 		r.setDate(new Date());
 
@@ -70,23 +70,24 @@ public class TollServiceImpl implements TollService {
 			throw new NotEnoughMoneyException();
 		}
 		r.setChange(moneyReceived.subtract(money));
-		try {
-			return Response.status(Response.Status.OK)
-						   .contentLocation(new URI("toll/receipt/" + r.getId()))
-						   .build();
-		} catch (URISyntaxException e) {
-			throw new WebApplicationException(e);
-		}
+//		try {
+//			return Response.status(Response.Status.OK)
+//						   .contentLocation(new URI("toll/receipt/" + r.getId()))
+//						   .build();
+//		} catch (URISyntaxException e) {
+//			throw new WebApplicationException(e);
+//		}
+		return r;
 	}
 
 	@Override
-	public Recipt pay(String id, String ccNumber) {
+	public Receipt pay(String id, String ccNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Recipt getReceipt(UUID id) {
+	public Receipt getReceipt(UUID id) {
 		return cache.get(id);
 	}
 
