@@ -61,23 +61,20 @@ public class TollServiceImpl implements TollService {
 	}
 
 	@Override
-	public Receipt pay(String id, BigDecimal money, BigDecimal moneyReceived) {
+	public URI pay(String id, BigDecimal money, BigDecimal moneyReceived) {
 		Receipt r = new Receipt();
-		r.setImmatricuation(id);
+		r.setImmatriculation(id);
 		r.setDate(new Date());
 
 		if (moneyReceived.compareTo(money) < 0) {
 			throw new NotEnoughMoneyException();
 		}
 		r.setChange(moneyReceived.subtract(money));
-//		try {
-//			return Response.status(Response.Status.OK)
-//						   .contentLocation(new URI("toll/receipt/" + r.getId()))
-//						   .build();
-//		} catch (URISyntaxException e) {
-//			throw new WebApplicationException(e);
-//		}
-		return r;
+		try {
+			return new URI("toll/receipt/" + r.getId());
+		} catch (URISyntaxException e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 	@Override

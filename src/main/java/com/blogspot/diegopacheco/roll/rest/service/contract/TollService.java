@@ -39,7 +39,7 @@ public interface TollService {
 	// Ressource: vehicule
 	@POST
 	@Path("/vehicule/{immatriculation}/pay/cash/{money}/received/{moneyReceived}")
-	public Receipt pay (@PathParam("immatriculation") String id,
+	public URI pay (@PathParam("immatriculation") String id,
 					   @PathParam("money") BigDecimal money,
 					   @PathParam("moneyReceived") BigDecimal moneyReceived);
 
