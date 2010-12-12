@@ -43,10 +43,9 @@ public class ArrayListProvider  implements MessageBodyWriter<ArrayList<Object>> 
 		
 		Object[] array = arrayList.toArray();	
 		for(int i=0;i<array.length;i++){
-			if(i == 0){
-				write(os, array[i]);
+			if(i != 0){
+				os.write(",".getBytes());
 			}
-			os.write(",".getBytes());
 			write(os, array[i]);	
 		}
 		os.write("]".getBytes());
