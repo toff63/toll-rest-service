@@ -17,11 +17,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlRootElement
-@XmlType(name = "", propOrder = { "id","date", "immatriculation", "change", "approvalCode"})
+@XmlType(name = "", propOrder = { "id","gateId","date", "immatriculation", "change", "approvalCode"})
 public class Receipt {
 
   private UUID id;
 
+  private Integer gateId;
+  
   private BigDecimal change;
 
   private Date date;
@@ -73,6 +75,14 @@ public void setImmatriculation(String immatriculation) {
 
 public String getImmatriculation() {
 	return immatriculation;
+}
+
+public void setGateId(Integer gateId) {
+	this.gateId = gateId;
+}
+
+public Integer getGateId() {
+	return gateId;
 }
 
 }

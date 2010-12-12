@@ -41,13 +41,21 @@ public class ArrayListProvider  implements MessageBodyWriter<ArrayList<Object>> 
 		
 		os.write("[".getBytes());
 		
-		Object[] array = arrayList.toArray();		
+		Object[] array = arrayList.toArray();	
 		for(int i=0;i<array.length;i++){
-			os.write(array[i].toString().getBytes());
-			if ((i+1)<array.length)
-				os.write(",".getBytes());		
+			if(i == 0){
+				write(os, array[i]);
+			}
+			os.write(",".getBytes());
+			write(os, array[i]);	
 		}
 		os.write("]".getBytes());
     }
+
+	private void write(OutputStream os, Object object)
+			throws IOException {
+		String tmp = "\"" + object.toString() + "\"";
+		os.write(tmp.getBytes());
+	}
     
 }

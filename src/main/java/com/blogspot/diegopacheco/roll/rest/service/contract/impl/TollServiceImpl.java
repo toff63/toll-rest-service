@@ -2,12 +2,14 @@ package com.blogspot.diegopacheco.roll.rest.service.contract.impl;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.blogspot.diegopacheco.roll.rest.service.contract.Receipt;
@@ -27,6 +29,8 @@ import com.blogspot.diegopacheco.roll.rest.service.exception.NotEnoughMoneyExcep
 public class TollServiceImpl implements TollService {
 	
 	private Map<UUID, Receipt> cache = new HashMap<UUID, Receipt>();
+	
+	private UriUtils uriUtils;
 
 	@Override
 	public BigDecimal price(VehiculeType type) {
@@ -60,20 +64,17 @@ public class TollServiceImpl implements TollService {
 	}
 
 	@Override
-	public URI pay(UriInfo ui, String id, BigDecimal money, BigDecimal moneyReceived) {
+	public URI pay(UriInfo ui, Integer gateId, String id, BigDecimal money, BigDecimal moneyReceived) {
 		Receipt r = new Receipt();
 		r.setImmatriculation(id);
 		r.setDate(new Date());
-
+		r.setGateId(gateId);
 		if (moneyReceived.compareTo(money) < 0) {
 			throw new NotEnoughMoneyException();
 		}
 		r.setChange(moneyReceived.subtract(money));
 		cache.put(r.getId(), r);
-		UriBuilder  ub = ui.getBaseUriBuilder().
-							path(TollService.class).
-							path(TollService.class, "getReceipt");
-		return ub.build(r.getId());
+		return uriUtils.getReceipt(ui, r.getId());
 	}
 
 	@Override
@@ -87,4 +88,17 @@ public class TollServiceImpl implements TollService {
 		return cache.get(id);
 	}
 
+	public void setUriUtils(UriUtils uriUtils) {
+		this.uriUtils = uriUtils;
+	}
+
+	@Override
+	public List<URI> getAllReceipts(UriInfo ui) {
+		List<URI> uris = new ArrayList<URI>();
+		Set<UUID> ids = cache.keySet();
+		for(UUID id : ids){
+			uris.add(uriUtils.getReceipt(ui, id));
+		}
+		return uris;
+	}
 }
