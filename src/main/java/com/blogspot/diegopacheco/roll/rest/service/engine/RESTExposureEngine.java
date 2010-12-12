@@ -60,7 +60,6 @@ public class RESTExposureEngine {
 		svrFactoryRest.setProviders(providers);
 		
 		svrFactoryRest.create();
-	   
    }
 	
 }
