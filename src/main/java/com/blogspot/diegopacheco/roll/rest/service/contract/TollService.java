@@ -15,6 +15,7 @@ import javax.ws.rs.core.UriInfo;
 
 import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 
+
 /**
  * 
  * @author Diego Pacheco
@@ -54,14 +55,23 @@ public interface TollService {
 	// Ressource: Receipt
 	@GET
 	@Path("/receipt/{id}")
+	@Produces("application/atom+xml;type=feed")
 	public Receipt getReceipt(@PathParam("id") UUID id);
 	
 	/**
 	 * Overloading getReceipt doesn't work with CXF and throw 
 	 * IllegalArgumentException: Multiple Path annotations for 'getReceipt' overloaded method
 	 */
+//	@GET
+//	@Path("/receipt")
+//	public List<URI> getAllReceipts(@Context UriInfo ui);
+
+	/**
+	 * Overloading getReceipt doesn't work with CXF and throw 
+	 * IllegalArgumentException: Multiple Path annotations for 'getReceipt' overloaded method
+	 */
 	@GET
 	@Path("/receipt")
-	public List<URI> getAllReceipts(@Context UriInfo ui);
-
+	@Produces("application/atom+xml;type=feed")
+	public List<Receipt> getAllReceiptAtom();
 }

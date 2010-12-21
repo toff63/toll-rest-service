@@ -18,6 +18,8 @@ import com.blogspot.diegopacheco.roll.rest.service.domain.VehiculeType;
 import com.blogspot.diegopacheco.roll.rest.service.exception.MissingAxisException;
 import com.blogspot.diegopacheco.roll.rest.service.exception.NotEnoughMoneyException;
 
+
+
 /**
  * 
  * @author Diego Pacheco
@@ -92,7 +94,7 @@ public class TollServiceImpl implements TollService {
 		this.uriUtils = uriUtils;
 	}
 
-	@Override
+//	@Override
 	public List<URI> getAllReceipts(UriInfo ui) {
 		List<URI> uris = new ArrayList<URI>();
 		Set<UUID> ids = cache.keySet();
@@ -100,5 +102,15 @@ public class TollServiceImpl implements TollService {
 			uris.add(uriUtils.getReceipt(ui, id));
 		}
 		return uris;
+	}
+
+	@Override
+	public List<Receipt> getAllReceiptAtom() {
+		List<Receipt> res = new ArrayList<Receipt>();
+		Set<UUID> keys = cache.keySet();
+		for(UUID key : keys){
+			res.add(cache.get(key));
+		}
+		return res;
 	}
 }
